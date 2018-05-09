@@ -1,0 +1,26 @@
+#version 330 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexColor;
+layout(location = 2) in vec2 vertexTexCoord;
+layout(location = 3) in vec3 vertexNormal_modelspace;
+
+layout(location = 4) in float selectcolor;//m
+
+// Values that stay constant for the whole model.
+uniform mat4 ViewProjectionMatrix;
+uniform mat4 ModelMatrix;
+
+// Output data from vertex shader to fragment shader.
+out vec3 fragmentColor;
+out vec2 texCoord;
+out float setcolor;
+void main(){
+	gl_Position = ViewProjectionMatrix * ModelMatrix * vec4(vertexPosition_modelspace, 1);
+
+	fragmentColor = vertexColor;
+	texCoord = vertexTexCoord;//m
+	setcolor = selectcolor;//m
+
+}
